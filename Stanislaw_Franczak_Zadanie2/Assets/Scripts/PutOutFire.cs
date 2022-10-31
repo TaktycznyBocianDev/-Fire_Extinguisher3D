@@ -32,17 +32,24 @@ public class PutOutFire : MonoBehaviour
     {
         EventManager.usingFEStart += isExInUseSet;
         EventManager.EndOfusingFE += isExInUseSet;
+        EventManager.EndOfFiller += TheEnd;
     }
 
     private void OnDisable()
     {
         EventManager.usingFEStart -= isExInUseSet;
         EventManager.EndOfusingFE -= isExInUseSet;
+        EventManager.EndOfFiller -= TheEnd;
     }
 
     private void isExInUseSet()
     {
         isExInUse = !isExInUse;
+    }
+
+    private void TheEnd()
+    {
+        isExInUse = false;
     }
 
     private void Update()
@@ -54,6 +61,13 @@ public class PutOutFire : MonoBehaviour
             powerOfFire -= Time.deltaTime * fireExtPower;
             var emision = fireEffect.emission;
             emision.rateOverTime = powerOfFire;
+            if (emision.rateOverTime.constant <= 0.1f)
+            {
+                emision.rateOverTime = 0;
+                powerOfFire = 0;
+                Destroy(fireEffect);
+            }
+
         }
         if (!isExInUse)
         {
@@ -65,6 +79,7 @@ public class PutOutFire : MonoBehaviour
                 if (emision.rateOverTime.constant >= startingPowerOfFire)
                 {
                     emision.rateOverTime = startingPowerOfFire;
+                    powerOfFire = startingPowerOfFire;
                 }
             }
         }

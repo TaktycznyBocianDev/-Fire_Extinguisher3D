@@ -27,8 +27,13 @@ public class UseFEBtnScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         EventManager.EndOfUsingFEFunc();
     }
 
+    private void OnDestroy()
+    {
+        EventManager.EndOfUsingFEFunc();
+    }
     private void ThisIsTheEnd()
     {
+        
         Destroy(gameObject);
     }
 }
