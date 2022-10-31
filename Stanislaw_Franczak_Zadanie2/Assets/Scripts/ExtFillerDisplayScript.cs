@@ -8,12 +8,13 @@ public class ExtFillerDisplayScript : MonoBehaviour
 
     [Header("Na jak¹ iloœæ czasu ma wystarczyæ gaœnica?")]
     [SerializeField] float fillerState;
+    public float GetFillerState() { return fillerState; }
 
     private bool isExtUsed;
 
     private void Start()
     {
-        text.text = fillerState.ToString("F2");
+        text.text = fillerState.ToString();
         isExtUsed = false;
     }
 

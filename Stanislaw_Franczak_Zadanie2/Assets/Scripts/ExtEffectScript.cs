@@ -35,7 +35,7 @@ public class ExtEffectScript : MonoBehaviour
 
     private void EndOfFiller()
     {
-        Destroy(extEffect);
+        extEffect.SetActive(false);
     }
 
     private void Update()
