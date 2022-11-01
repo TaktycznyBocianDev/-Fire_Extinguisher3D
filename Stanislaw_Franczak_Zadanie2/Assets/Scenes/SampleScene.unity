@@ -213,8 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a57cfa523975c64e8e2137422b84082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 421455462}
   fillerState: 10
+  text: {fileID: 421455462}
 --- !u!1 &167439483
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,7 +517,7 @@ GameObject:
   - component: {fileID: 297056216}
   - component: {fileID: 297056217}
   m_Layer: 0
-  m_Name: ' FireExtinguisher'
+  m_Name: FireExtinguisher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -628,7 +628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dae3201091b89045bddc499a19fbb64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  extEffect: {fileID: 1292265543}
+  fireExtinguisherEffect: {fileID: 1292265543}
 --- !u!1 &316849571
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,9 +833,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 039818a153b599c44a352c7f496fee22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireEffect: {fileID: 1541180847}
+  fireParticleEffect: {fileID: 1541180847}
   powerOfFire: 70
-  fireExtFiller: {fileID: 77823031}
+  fireExtinguisherFillerLevel: {fileID: 77823031}
   fireExtinguisher: {fileID: 297056211}
 --- !u!1 &421455460
 GameObject:

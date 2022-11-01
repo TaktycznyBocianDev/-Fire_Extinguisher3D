@@ -3,41 +3,41 @@ using UnityEngine.UI;
 
 public class ExtFillerDisplayScript : MonoBehaviour
 {
+    [Header("Na jak¹ iloœæ czasu ma wystarczyæ gaœnica?")]
+    [SerializeField] float fillerState;
     [Header("Miejsce gdzie poziom wype³nienia gaœnicy bêdzie siê wyœwietlaæ.")]
     [SerializeField] Text text;
 
-    [Header("Na jak¹ iloœæ czasu ma wystarczyæ gaœnica?")]
-    [SerializeField] float fillerState;
+    //Poni¿szy prosty getter bêdzie potrzebny do skryptu gaszenia ognia
     public float GetFillerState() { return fillerState; }
-
-    private bool isExtUsed;
+    private bool isFireExtinguisherInUse;
 
     private void Start()
     {
         text.text = fillerState.ToString();
-        isExtUsed = false;
+        isFireExtinguisherInUse = false;
     }
 
     private void OnEnable()
     {
-        EventManager.usingFEStart += UseEXSet;
-        EventManager.EndOfusingFE += UseEXSet;
+        EventManager.StartUsingFireExtinguisher += UseFireExtinguisherSet;
+        EventManager.StopUsingFireExtinguisher += UseFireExtinguisherSet;
     }
 
     private void OnDisable()
     {
-        EventManager.usingFEStart -= UseEXSet;
-        EventManager.EndOfusingFE -= UseEXSet;
+        EventManager.StartUsingFireExtinguisher -= UseFireExtinguisherSet;
+        EventManager.StopUsingFireExtinguisher -= UseFireExtinguisherSet;
     }
 
-    private void UseEXSet()
+    private void UseFireExtinguisherSet()
     {
-        isExtUsed = !isExtUsed;
+        isFireExtinguisherInUse = !isFireExtinguisherInUse;
     }
 
     private void Update()
     {
-        if (isExtUsed)
+        if (isFireExtinguisherInUse)
         {
             fillerState -= Time.deltaTime;
             text.text = fillerState.ToString("F2");
@@ -51,8 +51,8 @@ public class ExtFillerDisplayScript : MonoBehaviour
         if (fillerState <= 0)
         {
             text.text = "0";
-            EventManager.EndOfFillerFunc();
-            this.GetComponent<Image>().color = Color.red;
+            EventManager.FilerEndsFunc();
+            this.GetComponent<Image>().color = Color.red; //WyraŸnie pokazujemy u¿ytkownikowi, ¿e nie ma ju¿ proszku w gaœnicy
         }
     }
 }

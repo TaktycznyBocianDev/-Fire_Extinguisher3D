@@ -3,37 +3,36 @@ using UnityEngine.EventSystems;
 
 public class UseFEBtnScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    private bool buttonPressed;
-
-
-    private void OnEnable()
-    {
-        EventManager.EndOfFiller += ThisIsTheEnd;
-    }
-
-    private void OnDisable()
-    {
-        EventManager.EndOfFiller -= ThisIsTheEnd;
-    }
+    /*
+     * Aby przycisk móg³ wykonywaæ swoje funkcje
+     * implementujemy odpowiednie Interfejsy oraz nadpisujemy funkcje tak, 
+     * aby przyciœniêcie przycisku uruchamia³o odpowiedni event.
+     */
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        EventManager.UsingFEFuncStarts();
-
+        EventManager.StartUsingFireExtinguisherFunc();
     }
-
     public void OnPointerUp(PointerEventData eventData)
     {
-        EventManager.EndOfUsingFEFunc();
+        EventManager.StopUsingFireExtinguisherFunc();
     }
-
+    private void OnEnable()
+    {
+        EventManager.FillerHasEnded += ThisIsTheEnd;
+    }
+    private void OnDisable()
+    {
+        EventManager.FillerHasEnded -= ThisIsTheEnd;
+    }
+    //U¿ycie tego eventu w momencie zniszczenia zbêdnego przycisku sprawia ¿e emisja ognia nie zmiejsza siê do nieskoñczonoœci
     private void OnDestroy()
     {
-        EventManager.EndOfUsingFEFunc();
+        EventManager.StopUsingFireExtinguisherFunc();
     }
+    //Gdy skoñczy siê wype³nienie w gaœnicy, przycisk nie jest potrzebny
     private void ThisIsTheEnd()
-    {
-        
+    {     
         Destroy(gameObject);
-    }
+    }    
 }

@@ -1,46 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ExtEffectScript : MonoBehaviour
 {
     [Header("Efekt gaœnicy")]
-    [SerializeField] GameObject extEffect;
+    [SerializeField] GameObject fireExtinguisherEffect;
 
-    private bool isExtInUse;
+    private bool isFireExtinguisherInUse;
 
     private void Start()
     {
-        isExtInUse = false;
+        isFireExtinguisherInUse = false;
     }
 
     private void OnEnable()
     {
-        EventManager.usingFEStart += ExtInUseSet;
-        EventManager.EndOfusingFE += ExtInUseSet;
-        EventManager.EndOfFiller += EndOfFiller;
+        EventManager.StartUsingFireExtinguisher += FireExtinguisherInUseChange;
+        EventManager.StopUsingFireExtinguisher += FireExtinguisherInUseChange;
+        EventManager.FillerHasEnded += FillerHasEnded;
     }
 
     private void OnDisable()
     {
-        EventManager.usingFEStart -= ExtInUseSet;
-        EventManager.EndOfusingFE -= ExtInUseSet;
-        EventManager.EndOfFiller -= EndOfFiller;
+        EventManager.StartUsingFireExtinguisher -= FireExtinguisherInUseChange;
+        EventManager.StopUsingFireExtinguisher -= FireExtinguisherInUseChange;
+        EventManager.FillerHasEnded -= FillerHasEnded;
     }
 
-    private void ExtInUseSet()
+    private void FireExtinguisherInUseChange()
     {
-        isExtInUse = !isExtInUse;
+        isFireExtinguisherInUse = !isFireExtinguisherInUse;
     }
 
-    private void EndOfFiller()
+    private void FillerHasEnded()
     {
-        extEffect.SetActive(false);
+        fireExtinguisherEffect.SetActive(false);
     }
 
     private void Update()
     {
-        extEffect.SetActive(isExtInUse);
+        //Uruchom efekt je¿eli gaœnica jest u¿ywana
+        fireExtinguisherEffect.SetActive(isFireExtinguisherInUse);
     }
 
 }
